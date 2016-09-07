@@ -1,0 +1,8 @@
+---
+# tasks file for login_users
+
+- include: login.yml
+  tags: [login_users]
+
+- include: sudo.yml
+  tags: [login_users, sudo]

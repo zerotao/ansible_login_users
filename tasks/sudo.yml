@@ -1,0 +1,14 @@
+---
+- name: add users to sudo
+  template:
+    src: sudo.j2
+    dest: "/etc/sudoers.d/{{item.key}}"
+  with_dict: users
+  when: item.value.sudo == True
+
+- name: remove users not in sudo
+  file:
+    state: absent
+    dest: "/etc/sudoers.d/{{item.key}}"
+  with_dict: users
+  when: item.value.sudo != True
