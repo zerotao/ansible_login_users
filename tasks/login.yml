@@ -5,13 +5,13 @@
     name: "{{ item.key }}"
     groups: "{{ item.value.groups | default('') }}"
     shell: "{{ item.value.shell | default('/bin/sh') }}"
-  with_dict: users
+  with_dict: "{{ users }}"
 
 - name: add user ssh keys
   authorized_key:
     user: "{{ item.key }}"
     key: "{{ lookup('file', item.value.ssh_key) }}"
-  with_dict: users
-  when: "{{ item.value.ssh_key }}"
+  with_dict: "{{ users }}"
+  when: item.value.ssh_key
 
 
